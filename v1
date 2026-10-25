@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>리더십 셀프 체크 · 리더십 역량 자기진단</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F0EB; --surface:#FFFFFF; --ink:#4A4642; --body:#5C5853; --muted:#6B665F; --line:#E0DDD6;
+  --chip:#ECEAE5; --opt:#F7F6F3; --panel:#E9E6E0;
+  --primary:#4A4642; --primary-ink:#FFFFFF; --primary-soft:#E6E4DF; --primary-hover:#36322E;
+  --good:#4A4642; --good-soft:#E6E4DF; --good-ink:#4A4642;
+  --mid:#8F8A80; --mid-soft:#ECEAE5; --mid-ink:#57534B; --mid-bar:#ADA89F;
+  --low:#E4572E; --low-soft:#FBE2D8; --low-ink:#9C3415; --low-bg:#FDF1EC;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1C1B19; --surface:#262421; --ink:#EDE9E3; --body:#CFC9C0; --muted:#A8A198; --line:#3A3733;
+    --chip:#302E2A; --opt:#2C2A27; --panel:#2A2825;
+    --primary:#EDE9E3; --primary-ink:#1C1B19; --primary-soft:#33312D; --primary-hover:#FFFFFF;
+    --good:#EDE9E3; --good-soft:#33312D; --good-ink:#EDE9E3;
+    --mid:#A8A198; --mid-soft:#2F2D29; --mid-ink:#CFC9C0; --mid-bar:#77716A;
+    --low:#F07A52; --low-soft:#3D2620; --low-ink:#F4A487; --low-bg:#2E211C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1C1B19; --surface:#262421; --ink:#EDE9E3; --body:#CFC9C0; --muted:#A8A198; --line:#3A3733;
+  --chip:#302E2A; --opt:#2C2A27; --panel:#2A2825;
+  --primary:#EDE9E3; --primary-ink:#1C1B19; --primary-soft:#33312D; --primary-hover:#FFFFFF;
+  --good:#EDE9E3; --good-soft:#33312D; --good-ink:#EDE9E3;
+  --mid:#A8A198; --mid-soft:#2F2D29; --mid-ink:#CFC9C0; --mid-bar:#77716A;
+  --low:#F07A52; --low-soft:#3D2620; --low-ink:#F4A487; --low-bg:#2E211C;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  line-height:1.65;word-break:keep-all;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button{font:inherit}
+.serif{font-family:'Gowun Batang','Nanum Myeongjo',serif;font-weight:700}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+main{padding:56px 0 96px}
+
+/* progress bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar .wrap{padding-top:14px;padding-bottom:14px;display:flex;flex-direction:column;gap:10px}
+.bar-top{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.bar-top b{color:var(--low-ink);font-weight:600}
+.segs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.segs span{height:6px;border-radius:3px;background:var(--line);transition:background .2s}
+.segs span.done{background:var(--primary)}
+.segs span.cur{background:var(--low)}
+
+/* shared */
+.chip{display:inline-block;font-size:13px;font-weight:600;color:var(--ink);background:var(--primary-soft);padding:6px 12px;border-radius:999px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-size:16px;font-weight:600;cursor:pointer;min-height:48px;text-decoration:none;transition:background .15s,border-color .15s}
+.btn-primary{background:var(--primary);color:var(--primary-ink);border:0;padding:14px 36px}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-primary:disabled{opacity:.6;cursor:progress}
+.btn-big{padding:17px 48px;font-size:17px}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:12px 28px}
+.btn-ghost:hover{border-color:var(--mid)}
+.btn-small{min-height:40px;padding:8px 18px;font-size:14px;font-weight:500}
+.link{background:none;border:0;padding:6px 4px;min-height:44px;display:inline-flex;align-items:center;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:14px}
+button,label,a{-webkit-tap-highlight-color:transparent}
+.btn:focus-visible,.link:focus-visible,summary:focus-visible{outline:2px solid var(--low);outline-offset:3px}
+.card{background:var(--surface);border-radius:20px;padding:24px}
+h1:focus,h2:focus{outline:none}
+
+/* intro */
+.intro{display:flex;flex-direction:column;gap:44px}
+.hero-intro{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.hero-intro h1{margin:0;font-size:clamp(32px,6.4vw,44px);line-height:1.3}
+.lead{margin:0;font-size:17px;line-height:1.7;color:var(--body)}
+.facts{display:flex;gap:10px;flex-wrap:wrap}
+.facts > span{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px}
+.facts svg{flex:0 0 auto}
+.sec{display:flex;flex-direction:column;gap:16px}
+.sec h2{margin:0;font-size:18px;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stepcard{background:var(--surface);border-radius:16px;padding:16px 18px;display:flex;gap:12px;align-items:center;font-size:14px;line-height:1.4}
+.num{width:30px;height:30px;border-radius:50%;background:var(--primary-soft);color:var(--ink);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.num.alt{background:var(--low-soft);color:var(--low-ink)}
+.tip{background:var(--surface);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.tip b{font-size:15px;font-weight:600}
+.tip span{font-size:14px;line-height:1.6;color:var(--body)}
+.audience{background:var(--panel);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.7;color:var(--body)}
+.audience p{margin:0}
+.audience b{color:var(--ink)}
+.topcta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px}
+.topcta span{font-size:13px;color:var(--muted)}
+.cta{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.cta .note{font-size:13px;color:var(--muted);margin:0}
+.tools{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+
+/* question pages */
+section.domain{display:flex;flex-direction:column;gap:28px}
+.dhead{display:flex;gap:18px;align-items:flex-start}
+.dnum{width:52px;height:52px;border-radius:16px;background:var(--primary-soft);color:var(--ink);font-family:'Gowun Batang',serif;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.dnum.alt{background:var(--low-soft);color:var(--low-ink)}
+.dtitle{margin:0 0 6px;font-size:clamp(26px,5vw,30px);line-height:1.3}
+.ddesc{margin:0;font-size:15px;line-height:1.7;color:var(--body)}
+.dmeta{margin:6px 0 0;font-size:13px;color:var(--muted)}
+h3.sub{margin:8px 0 -14px;font-size:14px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.items{display:flex;flex-direction:column;gap:12px}
+fieldset.item{border:1.5px solid transparent;background:var(--surface);border-radius:18px;margin:0;padding:22px 24px;min-width:0;display:flex;flex-direction:column;gap:16px;transition:border-color .2s}
+fieldset.item.missing{border-color:var(--low)}
+legend{float:left;width:100%;padding:0;display:flex;gap:12px;font-size:16px;line-height:1.6;font-weight:500;margin:0}
+legend + *{clear:both}
+.code{font-size:12px;color:var(--muted);background:var(--chip);border-radius:6px;padding:0 8px;height:22px;line-height:22px;flex:0 0 auto;margin-top:2px;font-variant-numeric:tabular-nums}
+.opts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.opt{position:relative;display:block}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:100%;min-height:64px;text-align:center;padding:10px 4px;border:1px solid var(--line);border-radius:14px;background:var(--opt);color:var(--body);font-size:13px;line-height:1.3;cursor:pointer;user-select:none;transition:background .15s,border-color .15s}
+.opt span b{font-size:18px;font-weight:600;color:var(--ink)}
+.scale{display:flex;flex-direction:column;gap:6px}
+.ends,.picked{display:none}
+.ends{justify-content:space-between;font-size:12px;color:var(--muted)}
+.picked{margin:0;font-size:12px;color:var(--muted);text-align:center;min-height:18px}
+.opt span:hover{border-color:var(--mid)}
+.opt input:checked + span{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)}
+.opt input:checked + span b{color:inherit}
+.opt input:focus-visible + span{outline:2px solid var(--low);outline-offset:2px}
+.opt.na{align-self:flex-start}
+.opt.na span{min-height:44px;flex-direction:row;padding:7px 14px;border:1px dashed var(--mid);background:transparent;border-radius:999px;color:var(--muted)}
+.opt.na input:checked + span{border-style:solid;background:var(--mid);border-color:var(--mid);color:var(--primary-ink)}
+.miss-msg{display:none;margin:0;font-size:13px;color:var(--low-ink)}
+fieldset.item.missing .miss-msg{display:block}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:36px}
+.notice{margin:14px 0 0;color:var(--low-ink);font-size:14px;min-height:1.4em;text-align:center}
+
+/* results */
+#results{display:flex;flex-direction:column;gap:40px}
+.rhead{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.rdate{font-size:13px;color:var(--muted);padding-top:6px}
+.rhead h1{margin:0;font-size:clamp(28px,5.6vw,38px);line-height:1.35}
+.hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hcard{border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.hcard.good{background:var(--primary);color:var(--primary-ink)}
+.hcard.good p{color:inherit;opacity:.88}
+.hcard.low{background:var(--low-soft)}
+.hlabel{font-size:13px;font-weight:600}
+.hcard.good .hlabel,.hcard.good .hscore{color:inherit;opacity:.8}
+.hcard.low .hlabel,.hcard.low .hscore{color:var(--low-ink)}
+.hname{font-family:'Gowun Batang',serif;font-weight:700;font-size:24px;line-height:1.35}
+.hscore{font-size:14px}
+.hcard p{margin:0;font-size:14px;line-height:1.6;color:var(--body)}
+.chart h2,.lows h2,.duo h2{margin:0;font-size:18px;font-weight:600}
+.chart{display:flex;flex-direction:column;gap:4px;padding:28px 28px 14px}
+.chart h2{margin-bottom:12px}
+.crow{display:grid;grid-template-columns:220px minmax(0,1fr) 120px;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.crow.legend{border-top:0;padding:0 0 6px}
+.cname{font-size:15px;font-weight:500;display:flex;flex-direction:column;gap:2px}
+.cname small{font-size:12px;font-weight:400;color:var(--muted);line-height:1.4}
+.cname small.warn{color:var(--low-ink)}
+.zones{display:flex;height:28px;border-radius:10px;overflow:hidden;font-size:12px;font-weight:600}
+.zones span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden}
+.zones .low{background:var(--low-soft);color:var(--low-ink)}
+.zones .mid{background:var(--mid-soft);color:var(--mid-ink)}
+.zones .good{background:var(--good);color:var(--primary-ink)}
+.ctrack{position:relative;height:12px;border-radius:6px;background:var(--chip);margin:0 9px}
+.crow.legend .zones{margin:0 9px}
+.cfill{position:absolute;left:-9px;top:0;bottom:0;border-radius:6px;transition:width .3s}
+@media (min-width:641px){.cname small{white-space:nowrap}}
+.cdot{position:absolute;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--surface);border:4px solid}
+.cfill.good{background:var(--good)} .cdot.good{border-color:var(--good)}
+.cfill.mid{background:var(--mid-bar)} .cdot.mid{border-color:var(--mid-bar)}
+.cfill.low{background:var(--low)} .cdot.low{border-color:var(--low)}
+.cval{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.cval b{font-size:17px;font-variant-numeric:tabular-nums}
+.badge{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.badge.good{background:var(--good);color:var(--primary-ink)}
+.badge.mid{background:var(--mid-soft);color:var(--mid-ink)}
+.badge.low{background:var(--low-soft);color:var(--low-ink)}
+.lows{display:flex;flex-direction:column;gap:14px;padding:28px}
+.lows .hint,.duo .hint{margin:4px 0 0;font-size:14px;color:var(--muted);line-height:1.6}
+.lgroup{background:var(--low-bg);border-radius:16px;padding:6px 18px}
+.lghead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0 8px;color:var(--low-ink)}
+.lghead b{font-size:15px;font-weight:600}
+.lghead span{font-size:13px}
+.litem{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--low-soft)}
+.litem .c{font-size:12px;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.litem .d{display:block;font-size:12px;color:var(--low-ink);font-weight:600}
+.litem .t{font-size:15px;line-height:1.55}
+.litem .p{font-size:15px;font-weight:700;color:var(--low-ink);text-align:right}
+.empty{margin:0;font-size:14px;color:var(--muted)}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.duo .card{display:flex;flex-direction:column;gap:8px}
+.duo .lbl{font-size:13px;font-weight:600;color:var(--muted)}
+.duo .big{display:flex;align-items:baseline;gap:8px}
+.duo .big b{font-family:'Gowun Batang',serif;font-size:30px}
+.duo p{margin:0;font-size:14px;line-height:1.6;color:var(--body)}
+.mini{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.mini li{display:grid;grid-template-columns:36px minmax(0,1fr) 28px;gap:8px;font-size:13px;line-height:1.5;color:var(--body)}
+.mini li .c{color:var(--muted)}
+.mini li .p{text-align:right;font-weight:600;color:var(--ink)}
+.rcta{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding-top:8px}
+.rcta p{margin:0;font-size:15px;color:var(--body)}
+.pdfstatus{font-size:14px;color:var(--muted);min-height:1.4em}
+
+/* refs */
+.recs{display:flex;flex-direction:column;gap:18px;padding:28px}
+.recs h2{margin:0;font-size:18px;font-weight:600}
+.recs .hint{margin:4px 0 0;font-size:14px;color:var(--muted);line-height:1.6}
+.rstep{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:12px}
+.rstep.first{border-top:0;padding-top:0}
+.rshead{display:flex;gap:12px;align-items:flex-start}
+.rnum{width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--ink);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.rstep.first .rnum{background:var(--low);color:#FFFFFF}
+.rshead b{display:block;font-size:16px;font-weight:600;line-height:1.4}
+.rshead small{display:block;font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5}
+.rshead small.rwhy{color:var(--low-ink)}
+.ropts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-left:42px}
+.ropts.one{grid-template-columns:minmax(0,1fr)}
+.copt{background:var(--opt);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.ctag{font-size:12px;font-weight:600;color:var(--muted)}
+.cname{font-size:15px;font-weight:600;color:var(--ink);line-height:1.45}
+a.cname{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mid)}
+.cmeta{font-size:13px;color:var(--body);line-height:1.5}
+.cbadge{align-self:flex-start;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--primary-soft);color:var(--ink);margin-top:4px}
+.clink{font-size:13px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mid);margin-top:4px}
+.rnote{margin:0;font-size:12px;color:var(--muted);line-height:1.6}
+@media (max-width:640px){.ropts{grid-template-columns:minmax(0,1fr);padding-left:0}.recs{padding:22px 18px}}
+.refs{margin-top:72px;padding-top:32px;border-top:1px solid var(--line)}
+.refs h2{font-size:18px;margin:0 0 10px;font-weight:600}
+.refs > p{color:var(--body);font-size:14px;margin:0 0 16px;line-height:1.7}
+.refs details{margin:10px 0;background:var(--surface);border-radius:14px;padding:14px 18px}
+.refs summary{cursor:pointer;font-weight:600;font-size:15px}
+.tbl{overflow-x:auto;margin-top:10px}
+.tbl table{border-collapse:collapse;width:100%;min-width:540px;font-size:14px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:9px 10px;border-top:1px solid var(--line)}
+.tbl th{color:var(--muted);font-weight:600;border-top:0}
+.tbl td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted)}
+.refs ol{margin:10px 0 0;padding-left:1.4em;font-size:13px;color:var(--body)}
+.refs ol li{margin:6px 0}
+.privacy{margin-top:32px}
+.privacy h2{font-size:18px;margin:0 0 10px;font-weight:600}
+.privacy ul{margin:0;padding:16px 18px 16px 34px;background:var(--surface);border-radius:14px;font-size:14px;line-height:1.7;color:var(--body)}
+.privacy li{margin:4px 0}
+.tools a.link{text-decoration:underline}
+.privacy-inline{width:100%;max-width:560px;text-align:left}
+.privacy-inline ul{margin:4px 0 0;padding:16px 18px 16px 34px;background:var(--surface);border-radius:14px;font-size:14px;line-height:1.7;color:var(--body)}
+.privacy-inline li{margin:4px 0}
+
+@media (max-width:640px){
+  main{padding:36px 0 72px}
+  .grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tips{grid-template-columns:minmax(0,1fr)}
+  .hero,.duo{grid-template-columns:minmax(0,1fr)}
+  fieldset.item{padding:18px 16px}
+  .ends{display:flex}
+  .picked{display:block}
+  .opt span{min-height:52px;padding:6px 2px}
+  .opt span b{font-size:19px}
+  .opt span small{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .crow{grid-template-columns:minmax(0,1fr) auto;gap:8px 12px}
+  .crow .cname{grid-column:1}
+  .crow .cval{grid-column:2;grid-row:1}
+  .crow .ctrack{grid-column:1 / -1}
+  .crow.legend{grid-template-columns:minmax(0,1fr)}
+  .crow.legend > div:empty{display:none}
+  .chart,.lows{padding:22px 18px}
+  .dhead{gap:14px}
+  .dnum{width:44px;height:44px;font-size:20px;border-radius:14px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+@media (max-width:360px){
+  .stepcard{padding:12px;gap:10px;font-size:13px}
+  .num{width:26px;height:26px;font-size:13px}
+  .cval .badge{padding:3px 7px}
+  .crow{gap:6px 8px}
+}
+.rp-host{position:fixed;left:0;top:0;width:794px;pointer-events:none;z-index:2147483000}
+.rp-busy{position:fixed;inset:0;z-index:2147483600;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink);font-size:15px;text-align:center;padding:24px}
+.rp-busy small{color:var(--muted);font-size:13px}
+.rp-page{width:794px;height:1123px;background:#fff;color:#3F3B37;font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;padding:44px 60px 32px;display:flex;flex-direction:column;box-sizing:border-box;overflow:hidden;word-break:keep-all;line-height:1.55;margin-bottom:20px}
+.rp-page *{box-sizing:border-box}
+.rp-head{flex:0 0 auto;font-size:11px;color:#7A756D;border-bottom:1px solid #E3E0D9;padding-bottom:10px;margin-bottom:22px}
+.rp-body{flex:1 1 auto;min-height:0;overflow:hidden}
+.rp-foot{flex:0 0 auto;text-align:center;font-size:11px;color:#7A756D;padding-top:12px}
+.rp-block{padding-bottom:22px}
+.rp-cover{padding-top:8px}
+.rp-kicker{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4A4642;font-weight:600;margin:0 0 6px}
+.rp-page h1{font-family:'Gowun Batang',serif;font-size:32px;line-height:1.3;margin:0 0 20px;font-weight:700}
+.rp-meta{display:grid;grid-template-columns:1fr 1fr 1.4fr;margin:0 0 16px;border:1px solid #E3E0D9;border-radius:8px}
+.rp-meta div{padding:10px 14px;border-left:1px solid #E3E0D9}
+.rp-meta div:first-child{border-left:0}
+.rp-meta dt{font-size:11px;color:#7A756D;margin:0}
+.rp-meta dd{margin:2px 0 0;font-size:13px;font-weight:600}
+.rp-lead{font-size:12.5px;color:#5C5853;margin:0}
+.rp-page h2{font-size:17px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #3F3B37;font-weight:700}
+.rp-srow{display:grid;grid-template-columns:160px 1fr 128px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #EFEDE8}
+.rp-legend{border-bottom:0;padding:2px 0 0}
+.rp-tickrow{border-bottom:1px solid #E3E0D9;padding:0 0 6px}
+.rp-sname{font-size:13.5px;font-weight:600}
+.rp-track{position:relative;height:22px}
+.rp-legend .rp-track{height:26px}
+.rz{position:absolute;top:0;bottom:0}
+.rz.low{left:0;background:#FBE2D8;border-radius:5px 0 0 5px}
+.rz.mid{background:#ECEAE5}
+.rz.good{background:#4A4642;border-radius:0 5px 5px 0}
+.rp-srow:not(.rp-legend) .rz.good{background:#DCD8D1}
+.rz span{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden}
+.rz.low span{color:#9C3415} .rz.mid span{color:#57534B} .rz.good span{color:#FFFFFF}
+.rp-ticks{position:relative;height:14px;font-size:10px;color:#7A756D}
+.rp-ticks span{position:absolute;top:0;transform:translateX(-50%)}
+.rp-ticks span:first-child{transform:none}
+.rp-ticks span:last-child{transform:translateX(-100%)}
+.rp-dot{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;box-sizing:border-box;border-radius:50%;border:3px solid #fff}
+.rp-dot.good{background:#4A4642} .rp-dot.mid{background:#ADA89F} .rp-dot.low{background:#E4572E}
+.rp-sval{display:flex;align-items:center;justify-content:flex-end;gap:8px;white-space:nowrap}
+.rp-sval b{font-size:15px;font-variant-numeric:tabular-nums}
+.rp-page em{font-style:normal;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.rp-page em.good{background:#4A4642;color:#FFFFFF} .rp-page em.mid{background:#ECEAE5;color:#57534B} .rp-page em.low{background:#FBE2D8;color:#9C3415}
+.rp-box{background:#F4F2ED;border-radius:12px;padding:14px 18px;font-size:13px}
+.rp-box p{margin:0 0 6px} .rp-box p:last-child{margin:0}
+.rp-card{border:1px solid #E3E0D9;border-radius:14px;padding:14px 18px 8px}
+.rp-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.rp-card-head h3{font-size:15px;margin:0;font-weight:700}
+.rp-sub{font-size:11.5px;color:#5C5853;margin:0 0 6px}
+.rp-hint{font-size:11.5px;color:#5C5853;margin:-4px 0 12px}
+.rp-items{width:100%;border-collapse:collapse;font-size:12px}
+.rp-items td{padding:7px 0;border-top:1px solid #EFEDE8;vertical-align:top}
+.rp-items td.c{width:36px;color:#7A756D;font-variant-numeric:tabular-nums}
+.rp-items td.t{padding-right:12px}
+.rp-items td.s{width:96px;text-align:right;white-space:nowrap}
+.rp-items tr.low td.t{color:#9C3415;font-weight:500}
+.rp-sc{display:inline-flex;align-items:center;gap:3px}
+.rp-sc i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#E3E0D9}
+.rp-sc i.ok{background:#4A4642} .rp-sc i.lo{background:#E4572E}
+.rp-sc b{margin-left:6px;font-size:12px;display:inline-block;width:8px;text-align:right} .rp-sc b.lo{color:#9C3415}
+.rp-na{font-size:11px;color:#7A756D}
+.rp-rec td.c{width:56px;font-weight:600;color:#5C5853}
+.rp-plain{font-size:12.5px;color:#5C5853;margin:0}
+.rp-guide p{font-size:12.5px;margin:0 0 8px}
+.rp-refs p{font-size:11.5px;color:#5C5853;margin:0}
+.rp-refs ol{font-size:10.5px;color:#5C5853;padding-left:1.3em;margin:8px 0 0}
+.rp-refs li{margin:3px 0}
+</style>
+</head>
+<body>
+<div class="bar" id="bar" hidden><div class="wrap">
+  <div class="bar-top"><span id="step"></span><span id="countLine"></span></div>
+  <div class="segs" id="segs" aria-hidden="true"></div>
+</div></div>
+
+<main><div class="wrap">
+  <div class="intro" id="intro">
+    <div class="hero-intro">
+      <span class="chip" id="brandChip">리더십 셀프 체크</span>
+      <h1 class="serif">지금 나는 어떤 리더일까요?</h1>
+      <p class="lead">최근 3개월 동안 팀과 함께한 순간을 떠올리며 답해 보세요. 잘하고 있는 것과 다음에 키우면 좋을 것을 함께 찾아드릴게요.</p>
+      <div class="facts">
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h4"></path></svg><span id="factCount">35문항</span></span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>10~15분</span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M14 3v5h5"></path></svg>PDF 리포트 제공</span>
+      </div>
+      <div class="topcta"><button class="btn btn-primary" id="startBtn2" type="button">진단 시작하기</button><span>중간에 멈춰도 이어서 할 수 있어요</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>이렇게 진행돼요</h2>
+      <div class="grid3" id="stepCards"></div>
+    </div>
+
+    <div class="sec">
+      <h2>답할 때 이것만 기억해 주세요</h2>
+      <div class="grid3 tips">
+        <div class="tip"><b>평소 모습 그대로</b><span>되고 싶은 모습이 아니라, 지난 3개월 동안 실제로 해온 모습이 기준이에요.</span></div>
+        <div class="tip"><b>얼마나 자주 했는지</b><span>1 거의 안 한다부터 4 거의 항상 한다까지, 빈도로 답해요.</span></div>
+        <div class="tip"><b>상황이 없었다면</b><span>그런 일이 아예 없었을 때만 “해당 상황 없음”을 골라 주세요.</span></div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <p><b>이런 분을 위해 만들었어요.</b> 직속 팀원이 있고, 현재 팀을 3개월 이상 이끌고 있는 팀장이에요. 팀장들을 이끄는 리더나 아직 팀원이 없는 분에게는 문항이 역할과 맞지 않는 부분이 많아요.</p>
+      <p><b>이렇게 활용해 주세요.</b> 리더십 연구를 바탕으로 설계한 자기 성찰용 도구이며, 통계적 타당화를 거친 표준화 검사는 아니에요. 결과는 정답이 아니라 스스로를 돌아보고 성장할 영역을 찾는 출발점으로 봐 주세요.</p>
+    </div>
+
+    <div class="cta">
+      <button class="btn btn-primary btn-big" id="startBtn" type="button">진단 시작하기</button>
+      <p class="note">응답은 이 기기의 브라우저에만 저장되고, 어디에도 전송되지 않아요.</p>
+      <div class="tools">
+        <button class="link" id="privBtn" type="button" aria-expanded="false" aria-controls="privInline">개인정보 안내 보기</button>
+        <button class="link reset-btn" id="resetBtn" type="button" hidden>내 응답 지우기</button>
+        <button class="link" id="randBtn" type="button" hidden>예시 응답으로 결과 미리보기</button>
+      </div>
+      <div class="privacy-inline" id="privInline" hidden></div>
+    </div>
+  </div>
+
+  <div id="form"></div>
+
+  <div class="pager" id="pager" hidden>
+    <button class="btn btn-ghost" id="prevBtn" type="button">이전</button>
+    <button class="btn btn-primary" id="nextBtn" type="button">다음 영역으로</button>
+  </div>
+  <p class="notice" id="notice" role="status"></p>
+
+  <section id="results" hidden aria-labelledby="resTitle">
+    <div class="rhead">
+      <button class="btn btn-ghost btn-small" id="backBtn" type="button">‹ 이전 페이지로</button>
+      <span class="rdate" id="resDate"></span>
+      <h1 class="serif" id="resTitle">수고하셨어요.<br>나의 리더십 지도를 함께 볼까요?</h1>
+      <p class="lead" style="font-size:15px">점수는 영역별 문항의 평균이에요. 1점에 가까울수록 거의 하지 않는 행동, 4점에 가까울수록 거의 항상 하는 행동이에요. 3.5점 이상은 강점, 2.5점 미만은 성장 포인트로 봐요.</p>
+    </div>
+    <div id="resBody" style="display:flex;flex-direction:column;gap:24px"></div>
+    <div class="rcta">
+      <p>결과를 리포트로 저장해 두고, 3~6개월 뒤 다시 진단해 변화를 비교해 보세요.</p>
+      <button class="btn btn-primary btn-big" id="pdfBtn" type="button">PDF 리포트 저장하기</button>
+      <span class="pdfstatus" id="pdfStatus" role="status"></span>
+      <button class="btn btn-ghost" id="pdfSave" type="button" hidden>리포트 저장·공유하기</button>
+      <div class="tools">
+        <button class="link" id="editBtn" type="button">처음 페이지부터 응답 수정하기</button>
+        <button class="link reset-btn" id="resetBtn2" type="button">내 응답 지우기</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="refs" id="refs" aria-labelledby="refTitle">
+    <h2 id="refTitle">이 진단지의 근거</h2>
+    <p>이 진단지는 Google Project Oxygen, 리더십 파이프라인, 심리적 안전감 연구 등 리더십 분야의 대표적인 연구와 모델을 바탕으로 문항을 설계했어요. 자기 성찰과 개발 우선순위를 찾기 위한 도구이며, 통계적 타당화를 거친 표준화 검사는 아니에요.</p>
+    <details>
+      <summary>문항별 근거 보기</summary>
+      <div class="tbl"><table>
+        <thead><tr><th>영역</th><th>문항</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="4">방향 설정과 의사결정</td><td>1-1~1-3</td><td>Project Oxygen: 팀의 명확한 비전과 전략<br>LPI: 공유 비전 고취</td></tr>
+          <tr><td>1-4, 1-5</td><td>Project Oxygen: 좋은 의사결정자</td></tr>
+          <tr><td>1-6</td><td>LPI: 현상에 도전(Challenge the Process)</td></tr>
+          <tr><td>1-7</td><td>Project Oxygen: 좋은 소통가(경청과 정보 공유)</td></tr>
+          <tr><td rowspan="3">성과 관리</td><td>2-1</td><td>Gallup Q12: 기대 수준을 아는 것이 가장 기본적인 요소<br>목표 설정 이론(Locke &amp; Latham): 구체적이고 합의된 목표</td></tr>
+          <tr><td>2-2, 2-3</td><td>리더십 파이프라인: 첫 리더 단계의 핵심 스킬(업무 계획, 업무 배정, 성과 측정)<br>Project Oxygen: 생산적이고 결과 지향적</td></tr>
+          <tr><td>2-4~2-6</td><td>Gallup Q12: 최근 6개월 안에 누군가 내 진척을 이야기해 줌<br>Project Oxygen: 성과에 대해 논의함</td></tr>
+          <tr><td rowspan="4">코칭·육성</td><td>3-1, 3-2</td><td>CCL의 SBI 피드백 모델<br>Project Oxygen: 좋은 코치</td></tr>
+          <tr><td>3-3</td><td>GROW 코칭 모델<br>심리적 안전감 연구: 호기심을 보이고 질문하기</td></tr>
+          <tr><td>3-4, 3-6</td><td>Project Oxygen: 커리어 개발 지원과 성과 논의</td></tr>
+          <tr><td>3-5, 3-7</td><td>리더십 파이프라인: 업무 배정과 코칭</td></tr>
+          <tr><td>위임과 역할 전환</td><td>4-1~4-5</td><td>리더십 파이프라인: 시간 사용과 일에 대한 가치관의 전환<br>Project Oxygen: 권한을 주고 세세하게 관리하지 않음</td></tr>
+          <tr><td rowspan="4">팀 문화와 협업</td><td>5-1</td><td>심리적 안전감 연구: 리더가 자신의 한계를 인정하기</td></tr>
+          <tr><td>5-2, 5-3</td><td>심리적 안전감 연구: 반대 의견을 청하고, 나쁜 소식에 생산적으로 반응하기</td></tr>
+          <tr><td>5-4</td><td>Project Oxygen: 포용적인 팀 환경 조성</td></tr>
+          <tr><td>5-5~5-7</td><td>Project Oxygen: 조직 전체와 협업, 좋은 소통가</td></tr>
+          <tr><td>자기관리 점검</td><td>S-1~S-3</td><td>Goleman의 감성지능 모델: 자기 인식, 자기 조절</td></tr>
+          <tr><td>응답 방식</td><td>전체</td><td>LPI의 행동 빈도 척도(LPI는 10점, 이 진단지는 4점으로 단순화)</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details>
+      <summary>참고문헌</summary>
+      <ol>
+        <li>Google re:Work. Project Oxygen: Identifying the characteristics of a great manager. (2008년 시작, 2018년 10가지 행동으로 개정)</li>
+        <li>Charan, R., Drotter, S., &amp; Noel, J. (2001; 2nd ed. 2011). <i>The Leadership Pipeline: How to Build the Leadership-Powered Company</i>. Jossey-Bass.</li>
+        <li>Edmondson, A. C. (1999). Psychological safety and learning behavior in work teams. <i>Administrative Science Quarterly</i>, 44(2), 350–383.</li>
+        <li>Edmondson, A. C. (2018). <i>The Fearless Organization</i>. Wiley.</li>
+        <li>Kouzes, J. M., &amp; Posner, B. Z. <i>The Leadership Challenge</i> 및 LPI(Leadership Practices Inventory). Wiley.</li>
+        <li>Whitmore, J. <i>Coaching for Performance</i>. Nicholas Brealey. (GROW 모델)</li>
+        <li>Center for Creative Leadership. SBI(Situation-Behavior-Impact) 피드백 모델.</li>
+        <li>Goleman, D. (1998). What makes a leader? <i>Harvard Business Review</i>, 76(6).</li>
+        <li>Gallup. Q12 Employee Engagement Survey.</li>
+        <li>Locke, E. A., &amp; Latham, G. P. (2002). Building a practically useful theory of goal setting and task motivation. <i>American Psychologist</i>, 57(9), 705–717.</li>
+      </ol>
+    </details>
+    <div class="privacy" id="privacy">
+      <h2>개인정보 안내</h2>
+      <ul>
+        <li>이 진단지는 이름, 연락처, 소속처럼 나를 알아볼 수 있는 정보를 묻지 않아요.</li>
+        <li>응답은 지금 쓰는 기기의 브라우저에만 저장되고, 운영자를 포함해 누구에게도 전송되지 않아요. PDF 리포트도 이 기기 안에서 만들어져 바로 저장돼요.</li>
+        <li>화면을 보여주기 위해 글꼴(Google Fonts)과 PDF 도구(cdnjs)를 외부에서 불러와요. 이때 이 서비스들과 페이지를 제공하는 호스팅 서비스에 접속 정보(IP 주소 등)가 전달될 수 있으며, 각 서비스의 방침에 따라 처리돼요.</li>
+        <li>저장된 응답은 “내 응답 지우기”를 누르거나 브라우저의 방문 기록·사이트 데이터를 삭제하면 지워져요.</li>
+      </ul>
+    </div>
+  </section>
+</div></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const DOMAINS = [
+  { id:'1', name:'방향 설정과 의사결정', subs:[
+    { name:'방향 설정', items:[
+      ['1-1','분기마다 팀의 목표와 우선순위를 정리해 팀원들에게 직접 설명한다.'],
+      ['1-2','1:1이나 팀 회의에서 팀원에게 지금 우리 팀에서 가장 중요한 일이 무엇이라고 생각하는지 물어본다.'],
+      ['1-3','새로운 업무 요청이 들어오면 기존 우선순위와 비교해서 하지 않을 일이나 미룰 일을 정한다.','n']
+    ]},
+    { name:'의사결정·변화', items:[
+      ['1-4','정보가 충분하지 않아도 정해 둔 시점에 결정을 내리고, 그 근거를 팀에 설명한다.'],
+      ['1-5','결정한 뒤에도 새로운 정보가 나오면 그 결정을 다시 검토하고, 필요하면 방향을 바꾼다.','n'],
+      ['1-6','위에서 지시가 없어도 팀의 일하는 방식이나 업무 구조에서 바꿔야 할 점을 찾아 먼저 제안하거나 실행한다.'],
+      ['1-7','조직의 방침이나 환경이 바뀌면 그 이유와 우리 팀에 미치는 영향을 해석해서 팀에 전달한다.','n']
+    ]}
+  ]},
+  { id:'2', name:'성과 관리', subs:[ { name:'', items:[
+    ['2-1','기간이 시작될 때 팀원별로 기대하는 성과 수준과 평가 기준을 팀원과 함께 정하고 합의한다.'],
+    ['2-2','맡긴 일이 계획보다 늦어지거나 문제가 생기면, 마감이 되기 전에 그 신호를 알아차린다.','n'],
+    ['2-3','상황이 바뀌면 팀원의 업무량과 일정을 다시 조정한다.','n'],
+    ['2-4','평가 시기가 오기 전에, 중간 시점에 팀원과 개인 성과의 진척을 함께 점검하는 대화를 갖는다.'],
+    ['2-5','성과가 기대에 못 미치면 팀원과 함께 원인을 확인하고, 다음에 할 행동을 구체적으로 합의한다.','n'],
+    ['2-6','성과를 평가할 때 사전에 합의한 기준에 근거해 판단하고, 그 근거를 팀원에게 설명한다.']
+  ]}]},
+  { id:'3', name:'코칭·육성', subs:[ { name:'', items:[
+    ['3-1','팀원이 잘한 일이 있으면 무엇이 좋았는지 구체적인 행동을 짚어서 바로 인정한다.'],
+    ['3-2','개선이 필요한 점이 보이면 미루지 않고, 구체적인 사실을 근거로 직접 이야기한다.','n'],
+    ['3-3','팀원이 문제를 가져오면, 먼저 질문을 던져 팀원이 스스로 해결책을 생각해 보게 한다.','ns'],
+    ['3-4','팀원과의 1:1 대화에서 단순 업무 보고 외에 개인의 커리어 성장과 고민을 다루는 시간을 확보한다.'],
+    ['3-5','업무를 배정할 때 팀원 각자의 강점, 약점, 커리어 방향을 고려한다.'],
+    ['3-6','팀원과 함께 6개월~1년 단위의 성장 목표를 세우고 주기적으로 점검한다.'],
+    ['3-7','팀원의 현재 역량보다 조금 어려운 일을 맡기고, 해낼 수 있도록 필요한 지원을 함께 제공한다.']
+  ]}]},
+  { id:'4', name:'위임과 역할 전환', subs:[ { name:'', items:[
+    ['4-1','내가 더 빨리 할 수 있는 일이라도, 팀원이 할 수 있는 일이면 팀원에게 맡긴다.'],
+    ['4-2','일을 맡길 때 결과에 대한 책임만이 아니라, 진행하면서 필요한 결정 권한도 함께 넘긴다.'],
+    ['4-3','일을 맡길 때 목표와 기대하는 결과는 분명히 전달하고, 진행 방식은 팀원이 정하도록 맡긴다.'],
+    ['4-4','마감이 급하더라도 리더가 직접 떠맡지 않고, 보완할 점을 제시해 팀원이 다시 주도하도록 한다.','n'],
+    ['4-5','일정을 짤 때 실무보다 방향 설정, 사람 관리, 이해관계자 조율 같은 리더의 일에 먼저 시간을 배정한다.']
+  ]}]},
+  { id:'5', name:'팀 문화와 협업', subs:[
+    { name:'팀 내부', items:[
+      ['5-1','내가 모르는 것이나 내 실수를 팀원들 앞에서 솔직하게 인정한다.'],
+      ['5-2','팀원이 내 의견에 반대하거나 문제를 제기하면, 먼저 그 이유를 묻고 끝까지 듣는다.','ns'],
+      ['5-3','팀원이 실수를 보고하면, 원인과 재발 방지 방법을 함께 찾는 데 집중한다.','ns'],
+      ['5-4','팀원들이 서로 돕고 정보를 나누도록, 함께 일할 기회나 공유하는 자리를 의도적으로 만든다.']
+    ]},
+    { name:'외부 협업', items:[
+      ['5-5','상사에게 팀의 상황, 이슈, 필요한 지원을 요청받기 전에 먼저 공유한다.'],
+      ['5-6','다른 팀과 이해관계가 부딪히면, 상대 팀 리더를 먼저 직접 만나 조율한다.','n'],
+      ['5-7','다른 팀의 목표와 상황을 알고 있어서, 협업을 요청할 때 상대에게도 도움이 되는 방식으로 제안한다.']
+    ]}
+  ]},
+  { id:'S', name:'자기관리 점검', self:true, subs:[ { name:'', items:[
+    ['S-1','회의나 대화 중 감정이 격해질 때, 표정이나 말투로 분출하지 않고 평정을 유지한다.'],
+    ['S-2','리더로서 지치지 않도록 에너지를 회복하는 시간이나 방법을 꾸준히 확보한다.'],
+    ['S-3','내 리더십을 스스로 돌아보는 시간을 갖거나, 다른 사람에게 피드백을 구한다.']
+  ]}]}
+];
+
+const LABELS = ['거의 안 한다','가끔 한다','자주 한다','거의 항상 한다'];
+const BAND = { good:'강점', mid:'안정', low:'성장 포인트' };
+const KEY = 'leader-diag-v1';
+const DESC = {
+  '1':'팀이 어디로 가야 하는지 정하고, 불확실할 때 결정하며, 변화를 이끄는지 돌아봐요.',
+  '2':'팀원에게 기대하는 성과를 분명히 하고, 진척을 살피며, 공정하게 평가하는지 돌아봐요.',
+  '3':'팀원에게 피드백을 주고, 스스로 생각하게 돕고, 성장을 계획하는지 돌아봐요.',
+  '4':'일을 맡기고 결정을 넘기면서, 나는 리더의 일에 시간을 쓰고 있는지 돌아봐요.',
+  '5':'팀원이 편하게 말할 수 있는 분위기와, 상사·다른 팀과의 협업을 돌아봐요.',
+  'S':'리더십 역량이 아니라, 지금 나에게 얼마나 여유가 있는지 살펴보는 문항이에요.'
+};
+
+const ALL = [];
+DOMAINS.forEach(d => d.subs.forEach(s => s.items.forEach(([code,text,f='']) => {
+  ALL.push({ code, text, na:f.includes('n'), signal:f.includes('s'), domain:d });
+})));
+const itemsOf = d => ALL.filter(i => i.domain === d);
+
+let answers = {};
+try { const raw = localStorage.getItem(KEY); if (raw) answers = JSON.parse(raw) || {}; } catch(e) { answers = {}; }
+try { if (!localStorage.getItem(KEY + ':pm2')) { ['2-1','2-2','2-3','2-4','2-7'].forEach(k => delete answers[k]); localStorage.setItem(KEY, JSON.stringify(answers)); localStorage.setItem(KEY + ':pm2', '1'); } } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(answers)); } catch(e) {} }
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function josa(word, withB, withoutB){
+  const ch = String(word).replace(/[^가-힣]/g, '').slice(-1);
+  if (!ch) return withB;
+  return ((ch.charCodeAt(0) - 0xAC00) % 28) ? withB : withoutB;
+}
+const hasLowItem = d => itemsOf(d).some(i => answers[i.code] === '1' || answers[i.code] === '2');
+let page = 0;
+const LAST = DOMAINS.length;
+
+function renderForm(){
+  document.getElementById('stepCards').innerHTML = DOMAINS.map((d, di) =>
+    `<div class="stepcard"><span class="num${d.self ? ' alt' : ''}">${di + 1}</span><span>${d.name}</span></div>`).join('');
+  document.getElementById('factCount').textContent = `${ALL.length}문항`;
+  document.getElementById('form').innerHTML = DOMAINS.map((d, di) => {
+    const subs = d.subs.map(s => {
+      const head = s.name ? `<h3 class="sub">${s.name}</h3>` : '';
+      const items = s.items.map(([code, text, f='']) => {
+        const opts = LABELS.map((l, i) => `<label class="opt"><input type="radio" name="q${code}" value="${i + 1}"><span><b>${i + 1}</b><small>${l}</small></span></label>`).join('');
+        const na = f.includes('n') ? `<label class="opt na"><input type="radio" name="q${code}" value="na"><span>해당 상황 없음</span></label>` : '';
+        return `<fieldset class="item" id="f${code}"><legend><span class="code">${code}</span><span class="txt">${esc(text)}</span></legend><div class="scale"><div class="ends" aria-hidden="true"><span>거의 안 한다</span><span>거의 항상 한다</span></div><div class="opts">${opts}</div><p class="picked" aria-hidden="true"></p></div>${na}<p class="miss-msg">이 문항에 아직 답하지 않았어요.</p></fieldset>`;
+      }).join('');
+      return `${head}<div class="items">${items}</div>`;
+    }).join('');
+    return `<section class="domain" data-page="${di + 1}" hidden>
+      <div class="dhead"><span class="dnum${d.self ? ' alt' : ''}">${di + 1}</span><div><h1 class="dtitle serif">${d.name}</h1><p class="ddesc">${DESC[d.id] || ''}</p><p class="dmeta">${itemsOf(d).length}문항</p></div></div>
+      ${subs}</section>`;
+  }).join('');
+  syncRadios();
+}
+
+function setPicked(code){
+  const f = document.getElementById('f' + code);
+  const el = f && f.querySelector('.picked');
+  if (!el) return;
+  const a = answers[code];
+  el.textContent = a && a !== 'na' ? `선택: ${LABELS[+a - 1]}` : '';
+}
+function syncRadios(){
+  ALL.forEach(it => {
+    document.querySelectorAll(`input[name="q${it.code}"]`).forEach(r => { r.checked = (answers[it.code] === r.value); });
+    setPicked(it.code);
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const done = ALL.filter(i => answers[i.code]).length;
+  document.getElementById('countLine').textContent = `지금까지 ${done}문항 답했어요`;
+  document.getElementById('segs').innerHTML = DOMAINS.map((d, i) => {
+    const complete = itemsOf(d).every(x => answers[x.code]);
+    return `<span class="${page === i + 1 ? 'cur' : (complete ? 'done' : '')}"></span>`;
+  }).join('');
+  const sb = document.getElementById('startBtn');
+  const sl = done === 0 ? '진단 시작하기' : (done === ALL.length ? '결과 보기' : '이어서 하기');
+  if (sb) sb.textContent = sl;
+  const rb = document.getElementById('resetBtn');
+  if (rb) rb.hidden = done === 0;
+  const sb2 = document.getElementById('startBtn2');
+  if (sb2) sb2.textContent = sl;
+}
+
+document.getElementById('form').addEventListener('change', e => {
+  const t = e.target;
+  if (t.type !== 'radio') return;
+  const code = t.name.slice(1);
+  answers[code] = t.value;
+  document.getElementById('f' + code).classList.remove('missing');
+  setPicked(code);
+  save(); updateProgress();
+});
+
+function stats(items){
+  let sum = 0, n = 0, na = 0;
+  items.forEach(it => {
+    const a = answers[it.code];
+    if (a === 'na') na++;
+    else if (a) { sum += +a; n++; }
+  });
+  return { mean: n ? sum / n : null, n, na };
+}
+
+const TH = { hi: 3.5, lo: 2.5 };
+function thresholds(){ return TH; }
+const pct = m => ((m - 1) / 3 * 100);
+function selfMsg(mean){
+  if (mean == null) return '';
+  const low = mean < TH.lo;
+  const SLAB = { 'S-1': '평정 유지', 'S-2': '에너지 회복', 'S-3': '스스로 돌아보기' };
+  const weak = ALL.filter(i => i.domain.self && (answers[i.code] === '1' || answers[i.code] === '2')).map(i => `‘${SLAB[i.code] || i.code}’(${i.code}, ${answers[i.code]}점)`);
+  let m = low
+    ? '지금은 리더 역할을 해낼 마음의 여유와 에너지가 부족한 상태일 수 있어요. 위에서 점수가 낮게 나온 영역이 있다면, 방법을 몰라서라기보다 지치고 바빠서 못 하고 있는 것일 수 있어요. 이럴 때는 리더십 스킬 교육을 듣기 전에 업무 부담을 줄이거나 회복할 시간을 먼저 챙기는 게 도움이 돼요. 그래서 추천 교육의 첫 순서에 회복을 돕는 과정을 넣어 두었어요.'
+    : '지금은 리더 역할을 해낼 마음의 여유와 에너지가 어느 정도 있는 상태예요. 그래서 위에서 점수가 낮게 나온 영역이 있다면, 바빠서 못 했다기보다 아직 방법을 잘 모르거나 습관이 되지 않았을 가능성이 커요. 이런 부분은 교육이나 연습으로 채우기 좋아요.';
+  if (!low && weak.length) m += ` 다만 평균과 달리 ${weak.join(', ')} 문항은 낮게 답했어요. 이 부분은 따로 챙겨 보세요.`;
+  return m;
+}
+
+function renderResults(){
+  const { hi, lo } = thresholds();
+  const band = m => m >= hi ? 'good' : (m >= lo ? 'mid' : 'low');
+  const core = DOMAINS.filter(d => !d.self);
+  const selfD = DOMAINS.find(d => d.self);
+  const rows = core.map(d => {
+    const st = stats(itemsOf(d));
+    const subs = d.subs.length > 1 ? d.subs.map(s => {
+      const ss = stats(s.items.map(([code]) => ALL.find(i => i.code === code)));
+      return `${s.name} ${ss.mean == null ? '-' : ss.mean.toFixed(2)}`;
+    }).join(' · ') : '';
+    return { d, st, unreliable: st.na >= 3, subs };
+  });
+  const valid = rows.filter(r => r.st.mean != null);
+  const reliable = valid.filter(r => !r.unreliable);
+  const pool = reliable.length ? reliable : valid;
+
+  let hero = '';
+  if (pool.length) {
+    const max = Math.max(...pool.map(r => r.st.mean));
+    const min = Math.min(...pool.map(r => r.st.mean));
+    const names = l => l.map(r => r.d.name).join(', ');
+    const scores = l => l.length === 1 ? `${l[0].st.mean.toFixed(2)}점 · ${BAND[band(l[0].st.mean)]}` : l.map(r => `${r.st.mean.toFixed(2)}점(${BAND[band(r.st.mean)]})`).join(' / ');
+    const lowCount = ALL.filter(i => !i.domain.self && (answers[i.code] === '1' || answers[i.code] === '2')).length;
+    if (max - min < 0.1) {
+      const fb = band(min) === band(max) ? band(min) : 'mid';
+      const fname = fb === 'good' ? '모든 영역이 고르게 높아요' : (fb === 'low' ? '전반적으로 점수가 낮게 나왔어요' : '영역별 점수가 비슷해요');
+      const fmsg = lowCount
+        ? '영역끼리 비교하기보다, 아래에서 1·2점으로 답한 문항을 먼저 살펴보는 게 더 도움이 돼요.'
+        : '1·2점으로 답한 문항도 없어서 지금은 뚜렷하게 비어 있는 행동이 없어요. 3점으로 답한 문항 중 더 자주 하고 싶은 행동을 골라 보세요.';
+      hero = `<div class="hcard ${fb === 'low' ? 'low' : 'good'}"><span class="hlabel">고르게 나온 결과</span><span class="hname">${fname}</span><p>${fmsg}</p></div>`;
+    } else {
+      const top = pool.filter(r => max - r.st.mean < 0.1 && r.st.mean - min >= 0.1);
+      const bottom = pool.filter(r => r.st.mean - min < 0.1 && max - r.st.mean >= 0.1);
+      const tb = band(max), bb = band(min);
+      const topMsg = (tb === 'good' ? '이 영역의 행동이 이미 습관처럼 자리 잡혀 있어요. 이 힘을 다른 영역에도 활용해 보세요.' : '아직 강점 구간은 아니지만, 다른 영역보다 꾸준히 하고 있는 행동이에요.')
+        + (top.length > 1 ? ' 점수 차이가 0.1점도 안 돼서 함께 담았어요.' : '')
+        + (top.some(r => hasLowItem(r.d)) ? ' 다만 이 영역 안에서도 1·2점으로 답한 문항이 있으니 아래에서 함께 확인해 보세요.' : '');
+      const selfLow = (() => { const m = stats(itemsOf(DOMAINS.find(d => d.self))).mean; return m != null && m < lo; })();
+      const botMsg = (bb === 'low' ? (selfLow ? '가장 먼저 키울 영역이에요. 다만 자기관리 점수가 낮아서, 이 영역 교육은 회복을 먼저 챙긴 뒤에 시작하는 걸 권해요.' : '교육을 고른다면 이 영역부터 살펴보면 좋아요. 아래에서 어떤 행동이 비어 있는지, 어떤 교육부터 들으면 좋을지 확인해 보세요.') : '성장 포인트 구간은 아니지만, 다른 영역보다 상대적으로 덜 하고 있는 행동이에요.') + (bottom.length > 1 ? ' 점수 차이가 0.1점도 안 돼서 모두 우선 후보로 보세요.' : '');
+      hero = `<div class="hero">
+        <div class="hcard good"><span class="hlabel">${tb === 'good' ? '가장 단단한 영역' : '상대적으로 나은 영역'}</span><span class="hname">${names(top)}</span><span class="hscore">${scores(top)}</span><p>${topMsg}</p></div>
+        <div class="hcard low"><span class="hlabel">다음 성장 포인트</span><span class="hname">${names(bottom)}</span><span class="hscore">${scores(bottom)}</span><p>${botMsg}</p></div>
+      </div>`;
+    }
+  }
+
+  const excluded = reliable.length ? valid.filter(r => r.unreliable) : [];
+  if (hero && excluded.length) hero += `<p class="empty">${excluded.map(r => r.d.name).join(', ')} 영역은 “해당 상황 없음”이 3개 이상이라 점수를 참고용으로만 보고, 위 비교에서는 뺐어요.</p>`;
+  const legend = `<div class="crow legend"><div></div><div class="zones" aria-hidden="true"><span class="low" style="width:${pct(lo)}%">성장 포인트</span><span class="mid" style="width:${pct(hi) - pct(lo)}%">안정</span><span class="good" style="width:${100 - pct(hi)}%">강점</span></div><div></div></div>`;
+  const chartRows = rows.map(({ d, st, unreliable, subs }) => {
+    if (st.mean == null) return `<div class="crow"><div class="cname">${d.id}. ${d.name}</div><div class="ctrack"></div><div class="cval"><span class="empty">응답 없음</span></div></div>`;
+    const b = band(st.mean), w = pct(st.mean).toFixed(1);
+    const notes = [];
+    if (subs) notes.push(`<small>${subs}</small>`);
+    if (st.na) notes.push(`<small class="${unreliable ? 'warn' : ''}">해당 상황 없음 ${st.na}개${unreliable ? ' · 참고용 점수예요' : ' · 평균에서 제외'}</small>`);
+    return `<div class="crow"><div class="cname">${d.id}. ${d.name}${notes.join('')}</div>
+      <div class="ctrack" role="img" aria-label="${d.name} ${st.mean.toFixed(2)}점, ${BAND[b]}"><span class="cfill ${b}" style="width:calc(${w}% + 9px)"></span><span class="cdot ${b}" style="left:${w}%"></span></div>
+      <div class="cval"><b>${st.mean.toFixed(2)}</b><span class="badge ${b}">${BAND[b]}</span></div></div>`;
+  }).join('');
+
+  const lowItems = ALL.filter(i => !i.domain.self && (answers[i.code] === '1' || answers[i.code] === '2'));
+  const lowHtml = lowItems.length
+    ? DOMAINS.filter(d => !d.self).map(d => {
+        const its = lowItems.filter(i => i.domain === d).sort((a, b) => (+answers[a.code]) - (+answers[b.code]) || a.code.localeCompare(b.code));
+        if (!its.length) return '';
+        return `<div class="lgroup"><div class="lghead"><b>${d.name}</b><span>${its.length}문항</span></div>${its.map(i => `<div class="litem"><span class="c">${i.code}</span><span class="t">${esc(i.text)}</span><span class="p">${answers[i.code]}점</span></div>`).join('')}</div>`;
+      }).join('')
+    : `<p class="empty">1점이나 2점으로 답한 문항이 없어요.</p>`;
+
+  const sst = stats(itemsOf(selfD));
+  let selfCard = `<div class="card"><span class="lbl">자기관리 점검</span><p class="empty">응답한 문항이 없어요.</p></div>`;
+  if (sst.mean != null) {
+    const sb = band(sst.mean);
+    const msg = selfMsg(sst.mean);
+    selfCard = `<div class="card"><span class="lbl">자기관리 점검</span><span class="big"><b>${sst.mean.toFixed(2)}</b><span class="badge ${sb}">${BAND[sb]}</span></span><p>${msg}</p>
+      <ul class="mini">${itemsOf(selfD).map(i => `<li><span class="c">${i.code}</span><span>${esc(i.text)}</span><span class="p">${answers[i.code] || '-'}</span></li>`).join('')}</ul></div>`;
+  }
+  const sig = ALL.filter(i => i.signal && answers[i.code] === 'na');
+  const sigCard = `<div class="card"><span class="lbl">한 번 더 들여다볼 문항</span>${sig.length
+    ? `<ul class="mini">${sig.map(i => `<li><span class="c">${i.code}</span><span>${esc(i.text)}</span><span></span></li>`).join('')}</ul><p>“해당 상황 없음”으로 답했어요. 그런 일이 없었다기보다, 팀원들이 나에게 말하지 않고 있는 것일 수도 있어요.</p>`
+    : `<p>팀원이 문제를 가져오는 일, 반대 의견을 내는 일, 실수를 보고하는 일이 지난 3개월 동안 모두 있었다고 답했어요. 팀원들이 이런 이야기를 나에게 꺼내고 있다는 좋은 신호예요.</p>`}</div>`;
+
+  { const dt = new Date(); document.getElementById('resDate').textContent = `${dt.getFullYear()}년 ${dt.getMonth() + 1}월 ${dt.getDate()}일 진단`; }
+  document.getElementById('resBody').innerHTML = `
+    ${hero}
+    <div class="card chart"><h2>영역별 한눈에 보기</h2>${legend}${chartRows}</div>
+    <div class="card lows"><div><h2>조금 더 들여다보면 좋을 행동</h2><p class="hint">1점이나 2점으로 답한 문항을 영역별로 모았어요. 낮은 점수부터 보여드려요. 바로 아래의 추천 교육도 이 문항들을 기준으로 골랐어요.</p></div>${lowHtml}</div>
+    ${recsHtml()}
+    <div class="duo">${selfCard}${sigCard}</div>`;
+}
+
+function showPage(p){
+  page = p;
+  document.getElementById('intro').hidden = p !== 0;
+  document.querySelectorAll('section.domain').forEach(s => { s.hidden = +s.dataset.page !== p; });
+  document.getElementById('pager').hidden = !(p >= 1 && p <= LAST);
+  document.getElementById('bar').hidden = !(p >= 1 && p <= LAST);
+  document.getElementById('results').hidden = p !== LAST + 1;
+  document.getElementById('refs').hidden = !(p === 0 || p === LAST + 1);
+  document.getElementById('privacy').hidden = p === 0;
+  document.getElementById('pdfSave').hidden = true; readyPdf = null;
+  document.getElementById('pdfStatus').textContent = '';
+  document.getElementById('notice').textContent = '';
+  document.querySelectorAll('fieldset.item').forEach(f => f.classList.remove('missing'));
+  if (p >= 1 && p <= LAST) document.getElementById('step').innerHTML = `<b>${p} / ${LAST}</b> ${DOMAINS[p - 1].name}`;
+  document.getElementById('prevBtn').textContent = p === 1 ? '처음으로' : '이전';
+  document.getElementById('nextBtn').textContent = p === LAST ? '결과 보기' : '다음 영역으로';
+  updateProgress();
+  if (p === LAST + 1) renderResults();
+  window.scrollTo({ top: 0 });
+  const h = p === 0 ? document.querySelector('#intro h1')
+    : (p > LAST ? document.getElementById('resTitle') : document.querySelector(`section.domain[data-page="${p}"] h1`));
+  if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  const missing = itemsOf(DOMAINS[page - 1]).filter(i => !answers[i.code]);
+  document.querySelectorAll('fieldset.item').forEach(f => f.classList.remove('missing'));
+  if (missing.length) {
+    missing.forEach(i => document.getElementById('f' + i.code).classList.add('missing'));
+    document.getElementById('notice').textContent = `아직 답하지 않은 문항이 ${missing.length}개 있어요. 표시된 문항에 답해 주세요.`;
+    document.getElementById('f' + missing[0].code).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  showPage(page + 1);
+});
+document.getElementById('prevBtn').addEventListener('click', () => showPage(page - 1));
+document.getElementById('editBtn').addEventListener('click', () => showPage(1));
+document.getElementById('backBtn').addEventListener('click', () => showPage(LAST));
+function startOrResume(){
+  const firstOpen = DOMAINS.findIndex(d => itemsOf(d).some(i => !answers[i.code]));
+  showPage(firstOpen === -1 ? LAST + 1 : firstOpen + 1);
+}
+document.getElementById('startBtn').addEventListener('click', startOrResume);
+document.getElementById('startBtn2').addEventListener('click', startOrResume);
+document.getElementById('randBtn').addEventListener('click', () => {
+  ALL.forEach(i => {
+    answers[i.code] = (i.na && Math.random() < 0.15) ? 'na' : String(1 + Math.floor(Math.random() * 4));
+  });
+  save(); syncRadios();
+  showPage(LAST + 1);
+});
+let resetArmed = null;
+function onReset(e){
+  const btn = e.currentTarget;
+  if (resetArmed !== btn) {
+    if (resetArmed) resetArmed.textContent = '내 응답 지우기';
+    resetArmed = btn;
+    btn.textContent = '한 번 더 누르면 모든 응답이 지워져요';
+    setTimeout(() => { if (resetArmed === btn) { resetArmed = null; btn.textContent = '내 응답 지우기'; } }, 5000);
+    return;
+  }
+  resetArmed = null;
+  btn.textContent = '내 응답 지우기';
+  answers = {};
+  try { localStorage.removeItem(KEY); } catch (err) {}
+  syncRadios();
+  showPage(0);
+  document.getElementById('notice').textContent = '이 기기에 저장된 응답을 모두 지웠어요.';
+}
+document.getElementById('resetBtn').addEventListener('click', onReset);
+document.getElementById('resetBtn2').addEventListener('click', onReset);
+
+
+// 교육 추천
+const RECS = [{"id": "T1", "name": "방향과 우선순위", "items": ["1-1", "1-2", "1-3"], "hunet": [{"name": "[팀장리더십] 사업전략 수립", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00350961&pcd=HLAP12167&year=2026&term=321", "hours": "17시간", "level": "초급", "fee": 220000, "refund": true}, {"name": "[팀장역량] 탁월한 팀장의 성과비법 - 전략＆실행", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00265102&pcd=HLSP79352&year=2026&term=321", "hours": "9시간", "level": "중급", "fee": 150000, "refund": false}], "kpc": [{"name": "리더십 영향력을 높이기 위한 전략기획 역량향상", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 2월 18~19일", "count": 3, "tel": "(02)724-1016", "new": false}]}, {"id": "T2", "name": "의사결정", "items": ["1-4", "1-5"], "hunet": [{"name": "탁월한 성과를 만드는 중간관리자의 문제해결력", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00317656&pcd=HLSP92168&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}, {"name": "처음 팀장이라면: AI로 배우는 리더의 10가지 결정 순간", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00389098&pcd=HLAP27023&year=2026&term=321", "hours": "3시간", "level": "초급", "fee": 103000, "refund": false}, {"name": "[리더의 착각] 리더는 왜 잘못된 의사결정을 할까", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00336706&pcd=HLAP04765&year=2026&term=321", "hours": "1시간", "level": "초급", "fee": 60000, "refund": false}], "kpc": [{"name": "AI시대의 전략적 의사결정기법", "days": 3, "hours": 18, "feeM": 62, "feeG": 69, "next": "2027년 3월 8~10일", "count": 4, "tel": "(02)398-4312, 724-1848", "new": false}]}, {"id": "T3", "name": "변화 주도", "items": ["1-6", "1-7"], "hunet": [{"name": "[팀장리더십] 변화혁신", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00350962&pcd=HLAP12166&year=2026&term=321", "hours": "17시간", "level": "중급", "fee": 220000, "refund": true}, {"name": "MZ 세대도 믿고 따르는 AI 시대의 팀장리더십", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00315533&pcd=HLSP91107&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}, {"name": "AX시대 리더의 필수 역량 : 턴어라운드 리더십", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00323303&pcd=HLAP01998&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}], "kpc": [{"name": "AI 시대를 이끄는 변화 리더십", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 4월 22~23일", "count": 4, "tel": "(02)724-1135", "new": false}]}, {"id": "T4", "name": "기대 성과 합의", "items": ["2-1"], "hunet": [{"name": "[강점리더십] 성과를 디자인하는 프레임워크 (MBO부터 OKR까지)", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00256321&pcd=HLSP75829&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 150000, "refund": true}, {"name": "[팀장리더십] 탁월한 팀장의 조건 - 성과관리", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00354154&pcd=HLAP13531&year=2026&term=321", "hours": "17시간", "level": "중급", "fee": 150000, "refund": true}], "kpc": [{"name": "성과내는 팀을 만드는 팀장 리더십", "days": 3, "hours": 18, "feeM": 63, "feeG": 70, "next": "2027년 2월 24~26일", "count": 6, "tel": "(02)724-1135", "new": false}]}, {"id": "T5", "name": "실행 점검과 조정", "items": ["2-2", "2-3"], "hunet": [{"name": "[팀장리더십] 애자일 성과관리", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00350960&pcd=HLAP12168&year=2026&term=321", "hours": "17시간", "level": "중급", "fee": 220000, "refund": true}, {"name": "레벨 UP! 성과를 리드하는 중간관리자 역량강화 클래스", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00315743&pcd=HLSP91205&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}], "kpc": [{"name": "AI 활용 데이터 기반 성과관리 리더십", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 2월 1~2일", "count": 4, "tel": "(02)724-1135", "new": false}]}, {"id": "T6", "name": "성과 대화와 평가", "items": ["2-4", "2-5", "2-6"], "hunet": [{"name": "평가에서 성과관리로, 프레임을 전환하라!", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00319690&pcd=HLAP00614&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}, {"name": "[북러닝] 팀장을 위한 성과면담의 기술(도서 제공)", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00369195&pcd=HLAP21024&year=2026&term=321", "hours": "3시간", "level": "초급", "fee": 80000, "refund": false}, {"name": "터닝포인트 팀장리더십 : 성과관리", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00303172&pcd=HLSP87155&year=2026&term=321", "hours": "6시간", "level": "초급", "fee": 200000, "refund": false}], "kpc": [{"name": "AI 시대, 리더를 위한 원온원(1:1) 면담 스킬", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 2월 1~2일", "count": 3, "tel": "(02)724-1016", "new": false}]}, {"id": "T7", "name": "피드백", "items": ["3-1", "3-2"], "hunet": [{"name": "당신의 피드백은 통하고 있는가 - 리더 코칭 가이드", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00341838&pcd=HLAP08133&year=2026&term=321", "hours": "2시간", "level": "초급", "fee": 60000, "refund": false}, {"name": "리더의 품격을 결정하는 말습관", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00321252&pcd=HLAP01431&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 140000, "refund": true}], "kpc": [{"name": "함께 만드는 성과, 피드백 커뮤니케이션", "days": 2, "hours": 14, "feeM": 56, "feeG": 62, "next": "2027년 4월 15~16일", "count": 4, "tel": "(02)398-4312, 724-1848", "new": false}]}, {"id": "T8", "name": "코칭 대화", "items": ["3-3", "3-4"], "hunet": [{"name": "리더를 부탁해, 코칭 솔루션", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00323310&pcd=HLAP02003&year=2026&term=321", "hours": "9시간", "level": "중급", "fee": 120000, "refund": true}, {"name": "코칭 포유_끌리는 리더의 Coaching Secret", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00342158&pcd=HLAP08209&year=2026&term=321", "hours": "14시간", "level": "초급", "fee": 170000, "refund": true}, {"name": "[북러닝] 리더의 원온원(도서 제공)", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00339839&pcd=HLAP07334&year=2026&term=321", "hours": "3시간", "level": "초급", "fee": 80000, "refund": false}], "kpc": [{"name": "AI 시대, 구성원의 자발성을 높이는 코칭 리더십", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 3월 2~3일", "count": 3, "tel": "(02)724-1135", "new": false}, {"name": "AI 시뮬레이션 기반 리더의 코칭 스킬 향상", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 2월 22~23일", "count": 3, "tel": "(02)724-1135", "new": true}]}, {"id": "T9", "name": "팀원 육성", "items": ["3-5", "3-6", "3-7"], "hunet": [{"name": "[팀장리더십] 탁월한 팀장의 조건 - 사람관리", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00318592&pcd=HLAP00281&year=2026&term=321", "hours": "16시간", "level": "중급", "fee": 150000, "refund": true}, {"name": "[강점리더십] 몰입을 이끄는 강점 활용법", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00280415&pcd=HLSP83053&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 170000, "refund": true}, {"name": "VUCA 시대 빛나는 코칭 리더십", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00367841&pcd=HLAP20420&year=2026&term=321", "hours": "31시간", "level": "초급", "fee": 200000, "refund": true}], "kpc": [{"name": "AI 시대, 구성원의 자발성을 높이는 코칭 리더십", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 3월 2~3일", "count": 3, "tel": "(02)724-1135", "new": false}]}, {"id": "T10", "name": "위임과 역할 전환", "items": ["4-1", "4-2", "4-3", "4-4", "4-5"], "hunet": [{"name": "[켄블랜차드의 SLⅡ리더십] 영감을 주는 리더로 거듭나다", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00388843&pcd=HLAP26796&year=2026&term=321", "hours": "13시간", "level": "초급", "fee": 130000, "refund": true}, {"name": "[팀장리더십] 탁월한 팀장의 조건 - 조직관리", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00354153&pcd=HLAP13532&year=2026&term=321", "hours": "17시간", "level": "중급", "fee": 150000, "refund": true}, {"name": "N년차 직장인이지만, 중간관리자는 처음이라", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00319171&pcd=HLAP00411&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}], "kpc": [{"name": "후배직원을 키우는 업무지시스킬(세대를 넘어 함께 일하기)", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 4월 5~6일", "count": 7, "tel": "(02)724-1016", "new": false}, {"name": "성공하는 팀장의 Five Roles", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 4월 26~27일", "count": 3, "tel": "(02)724-1016", "new": false}]}, {"id": "T11", "name": "심리적 안전감과 팀워크", "items": ["5-1", "5-2", "5-3", "5-4"], "hunet": [{"name": "[북러닝] 최고의 팀을 만드는 심리적 안전감(도서 제공)", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00151618&pcd=HLSP49097&year=2026&term=321", "hours": "3시간", "level": "초급", "fee": 70000, "refund": false}, {"name": "성과 창출을 이끄는 조직문화 전략", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00347021&pcd=HLAP10143&year=2026&term=321", "hours": "30시간", "level": "초급", "fee": 126000, "refund": true}, {"name": "Teamship, 시너지를 발휘하는 팀은 무엇이 다른가", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00323308&pcd=HLAP02001&year=2026&term=321", "hours": "9시간", "level": "중급", "fee": 120000, "refund": true}], "kpc": [{"name": "건강한 팀 문화 구축, 조직문화 리더십", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 3월 11~12일", "count": 4, "tel": "(02)724-1135", "new": false}]}, {"id": "T12", "name": "상사·타 팀과의 협업", "items": ["5-5", "5-6", "5-7"], "hunet": [{"name": "탁월한 링커 되기! 중간관리자 브릿지 리더십", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00317657&pcd=HLSP92167&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}, {"name": "협업 커뮤니케이션 스킬 : 갈등을 넘어 소통으로", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00311365&pcd=HLSP88783&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 130000, "refund": true}, {"name": "성공 기업의 1급 비밀, 갈등관리 역량과 혁신", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00367893&pcd=HLAP20419&year=2026&term=321", "hours": "20시간", "level": "초급", "fee": 130000, "refund": true}], "kpc": [{"name": "상사,동료,후배를 움직이는 상황별 커뮤니케이션", "days": 2, "hours": 14, "feeM": 53, "feeG": 59, "next": "2027년 3월 8~9일", "count": 5, "tel": "(02)398-4312, 724-1848", "new": false}, {"name": "AI 시대 사내 협업 및 네트워킹 전략", "days": 2, "hours": 14, "feeM": 54, "feeG": 59, "next": "2027년 5월 10~11일", "count": 3, "tel": "(02)724-1016", "new": false}]}, {"id": "T13", "name": "자기관리", "items": ["S-1", "S-2", "S-3"], "hunet": [{"name": "번아웃이 뭐야? 지치지 않는 리더의 자기관리법", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00323300&pcd=HLAP01996&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 120000, "refund": true}, {"name": "핵심만 콕! 번아웃을 극복하는 면역력, 회복탄력성", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00337124&pcd=HLAP05004&year=2026&term=321", "hours": "9시간", "level": "초급", "fee": 60000, "refund": true}, {"name": "리더들의 감정주치의, 이동환의 감정수업", "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00194179&pcd=HLSP60917&year=2026&term=321", "hours": "2시간", "level": "중급", "fee": 55000, "refund": false}], "kpc": [{"name": "회복탄력성을 높이는 긍정테라피", "days": 1, "hours": 7, "feeM": 35, "feeG": 39, "next": "2027년 4월 22일", "count": 3, "tel": "(02)398-4312, 724-1848", "new": false}]}];
+const RECS_NOTE = '교육 정보는 휴넷 교육과정 목록(2026년 10월 23일 기준)과 KPC 한국생산성본부 2027년 연간 일정표(2026년 10월 버전)를 바탕으로 해요. 일정, 비용, 환급 여부는 바뀔 수 있으니 신청 전에 각 기관 홈페이지에서 꼭 확인해 주세요.';
+const KPC_CAT = {
+  '49050015': { label: '계층·리더십 › 리더십', names: ['AI 시대를 이끄는 변화 리더십','성과내는 팀을 만드는 팀장 리더십','AI 활용 데이터 기반 성과관리 리더십','AI 시대, 구성원의 자발성을 높이는 코칭 리더십','AI 시뮬레이션 기반 리더의 코칭 스킬 향상','건강한 팀 문화 구축, 조직문화 리더십','마음을 움직이는 감성 리더십'] },
+  '49050016': { label: '계층·리더십 › 자기계발/공통역량', names: ['리더십 영향력을 높이기 위한 전략기획 역량향상','AI 시대, 리더를 위한 원온원(1:1) 면담 스킬','후배직원을 키우는 업무지시스킬(세대를 넘어 함께 일하기)','성공하는 팀장의 Five Roles','AI 시대 사내 협업 및 네트워킹 전략'] },
+  '49050121': { label: '비즈니스스킬 › 커뮤니케이션·협상', names: ['함께 만드는 성과, 피드백 커뮤니케이션','상사,동료,후배를 움직이는 상황별 커뮤니케이션'] },
+  '49050122': { label: '비즈니스스킬 › 기획력·문제해결', names: ['AI시대의 전략적 의사결정기법'] },
+  '49050123': { label: '비즈니스스킬 › 성과관리·자기혁신', names: ['회복탄력성을 높이는 긍정테라피'] }
+};
+function kpcLink(name){
+  for (const [no, c] of Object.entries(KPC_CAT)) if (c.names.includes(name)) return { url: `https://www.kpc.or.kr/PTWED002_index.do?cclno=${no}&type=A&gubun=depth3`, label: c.label };
+  return { url: 'https://www.kpc.or.kr/PTWED019_index.do', label: '연간교육' };
+}
+const won = n => `${Number(n).toLocaleString('ko-KR')}원`;
+function computeRecs(){
+  const { lo } = thresholds();
+  const selfD = DOMAINS.find(d => d.self);
+  const lowOf = its => its.filter(i => answers[i.code] === '1' || answers[i.code] === '2');
+  const scored = RECS.map(t => {
+    const its = t.items.map(c => ALL.find(i => i.code === c)).filter(Boolean);
+    const lows = lowOf(its);
+    const sev = lows.reduce((sum, i) => sum + (3 - +answers[i.code]), 0);
+    const nums = its.map(i => answers[i.code]).filter(a => a && a !== 'na').map(Number);
+    const avg = nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 9;
+    const dom = its[0].domain;
+    const dm = stats(itemsOf(dom)).mean;
+    return { t, its, lows, sev, avg, dom, dm: dm == null ? 9 : dm };
+  });
+
+  const steps = [];
+  const sm = stats(itemsOf(selfD)).mean;
+  const selfRow = scored.find(x => x.dom.self);
+  if (sm != null && sm < lo && selfRow) {
+    steps.push({ ...selfRow, why: '자기관리 점수가 낮게 나왔어요. 다른 교육보다 먼저, 지치지 않고 일할 여유를 회복하는 것부터 권해요.' });
+  }
+
+  let candidates = scored.filter(x => !x.dom.self && x.sev > 0);
+  candidates.sort((a, b) => (a.dm - b.dm) || (b.sev - a.sev) || (a.avg - b.avg));
+
+  if (!candidates.length && steps.length < 3) {
+    candidates = scored.filter(x => !x.dom.self && x.avg < 3.5)
+                       .sort((a, b) => (a.avg - b.avg) || (a.dm - b.dm));
+  }
+
+  for (const x of candidates) {
+    if (steps.length >= 3) break;
+    if (!steps.some(s => s.t.id === x.t.id)) {
+      const isFirst = steps.length === 0;
+      steps.push({
+        ...x,
+        why: isFirst
+          ? (x.sev ? '가장 낮은 영역에서 1·2점으로 답한 문항이 가장 많은 주제라, 여기부터 시작하는 게 효과가 커요.' : '1·2점 문항은 없지만, 상대적으로 가장 덜 하고 있는 행동이에요.')
+          : ''
+      });
+    }
+  }
+
+  return steps;
+}
+function recReason(x){
+  const head = x.dom.name === x.t.name || x.dom.self ? '낮게 답한 문항' : `${x.dom.name} 영역`;
+  if (x.lows.length) return `${head} · ${x.lows.map(i => `${i.code}(${answers[i.code]}점)`).join(', ')}`;
+  return `${x.dom.name} 영역 · 평균 ${x.avg.toFixed(1)}점`;
+}
+function hunetCard(c){
+  return `<div class="copt"><span class="ctag">온라인 · 휴넷</span><a class="cname" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a><span class="cmeta">${esc(c.hours)} · ${esc(c.level)} · ${won(c.fee)}</span>${c.refund ? '<span class="cbadge">고용보험 환급 과정</span>' : ''}</div>`;
+}
+function kpcCard(c){
+  return `<div class="copt"><span class="ctag">집합 교육 · KPC 한국생산성본부</span><span class="cname">${esc(c.name)}</span><span class="cmeta">${c.days}일(${c.hours}시간) · KPC 회원 ${c.feeM}만원 / 일반 ${c.feeG}만원</span><span class="cmeta">가장 빠른 일정 ${esc(c.next)}${c.count > 1 ? ` 외 ${c.count - 1}회` : ''}</span><span class="cmeta">문의 ${esc(c.tel)}</span><a class="clink" href="${kpcLink(c.name).url}" target="_blank" rel="noopener">KPC 홈페이지 ${esc(kpcLink(c.name).label)}에서 찾기 ›</a></div>`;
+}
+function recsHtml(){
+  const steps = computeRecs();
+  if (!steps.length) return `<div class="card recs"><div><h2>추천 교육</h2><p class="hint">모든 영역이 고르게 높아서 지금 꼭 필요한 교육은 보이지 않아요. 3점으로 답한 행동 중 더 자주 하고 싶은 것을 골라 꾸준히 실천해 보세요.</p></div></div>`;
+  const body = steps.map((x, i) => `<div class="rstep${i === 0 ? ' first' : ''}">
+      <div class="rshead"><span class="rnum">${i + 1}</span><div><b>${esc(x.t.name)}</b><small>${esc(recReason(x))}</small>${x.why ? `<small class="rwhy">${esc(x.why)}</small>` : ''}</div></div>
+      <div class="ropts${i === 0 ? '' : ' one'}">${i === 0 ? hunetCard(x.t.hunet[0]) + kpcCard(x.t.kpc[0]) : hunetCard(x.t.hunet[0])}</div>
+    </div>`).join('');
+  return `<div class="card recs"><div><h2>이 순서로 시작해 보세요</h2><p class="hint">한 번에 하나씩 듣고, 4~6주 정도 현장에서 실천해 본 뒤 다음 순서로 넘어가는 게 효과적이에요. 첫 번째 주제는 온라인과 집합 교육 중 편한 방식을 고를 수 있게 두 가지를 함께 보여드려요.</p></div>${body}<p class="rnote">${RECS_NOTE}</p></div>`;
+}
+function recsReportHtml(){
+  const steps = computeRecs();
+  if (!steps.length) return '<p class="rp-plain">모든 영역이 고르게 높아서 지금 꼭 필요한 교육은 보이지 않아요.</p>';
+  return steps.map((x, i) => {
+    const h = x.t.hunet[0], k = x.t.kpc[0];
+    const lines = [`<tr><td class="c">온라인</td><td class="t">휴넷 · ${esc(h.name)}<br><span class="rp-na">${esc(h.hours)} · ${esc(h.level)} · ${won(h.fee)}${h.refund ? ' · 고용보험 환급 과정' : ''}</span></td></tr>`];
+    if (i === 0) lines.push(`<tr><td class="c">집합</td><td class="t">KPC 한국생산성본부 · ${esc(k.name)}<br><span class="rp-na">${k.days}일(${k.hours}시간) · KPC 회원 ${k.feeM}만원 / 일반 ${k.feeG}만원 · 가장 빠른 일정 ${esc(k.next)}${k.count > 1 ? ` 외 ${k.count - 1}회` : ''} · 문의 ${esc(k.tel)} · KPC 홈페이지 ${esc(kpcLink(k.name).label)}</span></td></tr>`);
+    return `<div class="rp-card" style="margin-bottom:10px"><div class="rp-card-head"><h3>${i + 1}. ${esc(x.t.name)}</h3></div><p class="rp-sub">${esc(recReason(x))}${x.why ? ` · ${esc(x.why)}` : ''}</p><table class="rp-items rp-rec">${lines.join('')}</table></div>`;
+  }).join('') + `<p class="rp-plain" style="font-size:10.5px">${RECS_NOTE}</p>`;
+}
+
+// PDF 리포트
+const downloadsReady = (async () => {
+  try {
+    if (window.claude && typeof window.claude.use === 'function') return await window.claude.use('downloads');
+  } catch (e) {}
+  return null;
+})();
+
+const RP_W = 794, RP_H = 1123;
+
+function rpScore(a){
+  if (a === 'na') return '<span class="rp-na">해당 상황 없음</span>';
+  if (!a) return '<span class="rp-na">-</span>';
+  const n = +a, cls = n <= 2 ? 'lo' : 'ok';
+  let s = '';
+  for (let k = 1; k <= 4; k++) s += `<i class="${k <= n ? cls : ''}"></i>`;
+  return `<span class="rp-sc">${s}<b class="${cls}">${n}</b></span>`;
+}
+
+function rpItemRows(list){
+  return list.map(i => {
+    const a = answers[i.code];
+    const low = a === '1' || a === '2';
+    return `<tr class="${low ? 'low' : ''}"><td class="c">${i.code}</td><td class="t">${esc(i.text)}</td><td class="s">${rpScore(a)}</td></tr>`;
+  }).join('');
+}
+
+function buildReportBlocks(){
+  const { hi, lo } = thresholds();
+  const band = m => m >= hi ? 'good' : (m >= lo ? 'mid' : 'low');
+  const zones = labels => `<div class="rz low" style="width:${pct(lo)}%">${labels ? '<span>성장 포인트</span>' : ''}</div><div class="rz mid" style="left:${pct(lo)}%;width:${pct(hi) - pct(lo)}%">${labels ? '<span>안정</span>' : ''}</div><div class="rz good" style="left:${pct(hi)}%;width:${100 - pct(hi)}%">${labels ? '<span>강점</span>' : ''}</div>`;
+  const d = new Date();
+  const dateStr = `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
+  const core = DOMAINS.filter(x => !x.self);
+  const selfD = DOMAINS.find(x => x.self);
+  const rows = core.map(dm => { const st = stats(itemsOf(dm)); return { dm, st, unreliable: st.na >= 3 }; });
+  const blocks = [];
+
+  blocks.push(`<div class="rp-cover">
+    <p class="rp-kicker">Leadership Self-Assessment Report</p>
+    <h1>리더십 역량 자기진단 리포트</h1>
+    <dl class="rp-meta">
+      <div><dt>진단일</dt><dd>${dateStr}</dd></div>
+      <div><dt>응답 기준</dt><dd>최근 3개월 동안의 행동</dd></div>
+      <div><dt>해석 기준</dt><dd>강점 ${hi.toFixed(1)} 이상 / 성장 포인트 ${lo.toFixed(1)} 미만</dd></div>
+    </dl>
+    <p class="rp-lead">각 영역 점수는 그 영역 문항에 답한 점수의 평균이에요(1.0~4.0). 1점에 가까울수록 거의 하지 않는 행동, 4점에 가까울수록 거의 항상 하는 행동이라는 뜻이에요.</p>
+  </div>`);
+
+  const sumRows = rows.map(({ dm, st }) => {
+    if (st.mean == null) return '';
+    const b = band(st.mean);
+    return `<div class="rp-srow"><span class="rp-sname">${dm.id}. ${dm.name}</span><div class="rp-track">${zones(false)}<span class="rp-dot ${b}" style="left:${pct(st.mean)}%"></span></div><span class="rp-sval"><b>${st.mean.toFixed(2)}</b><em class="${b}">${BAND[b]}</em></span></div>`;
+  }).join('');
+  blocks.push(`<section><h2>한눈에 보기</h2>
+    <div class="rp-srow rp-legend"><span class="rp-sname"></span><div class="rp-track">${zones(true)}</div><span></span></div>
+    <div class="rp-srow rp-tickrow"><span></span><div class="rp-ticks"><span style="left:0">1</span><span style="left:33.33%">2</span><span style="left:66.67%">3</span><span style="left:100%">4</span></div><span></span></div>
+    ${sumRows}
+  </section>`);
+
+  const valid = rows.filter(r => r.st.mean != null);
+  const pool = valid.filter(r => !r.unreliable).length ? valid.filter(r => !r.unreliable) : valid;
+  let find = '';
+  if (pool.length) {
+    const lowAbs = valid.filter(r => band(r.st.mean) === 'low');
+    const max0 = Math.max(...pool.map(r => r.st.mean));
+    const min = Math.min(...pool.map(r => r.st.mean));
+    const lowest = pool.filter(r => r.st.mean - min < 0.1 && max0 - r.st.mean >= 0.1);
+    const goodAbs = valid.filter(r => band(r.st.mean) === 'good');
+    const max = Math.max(...pool.map(r => r.st.mean));
+    const highest = pool.filter(r => max - r.st.mean < 0.1 && r.st.mean - min >= 0.1);
+    const nm = list => list.map(r => `<b>${r.dm.name}(${r.st.mean.toFixed(2)})</b>`).join(', ');
+    const ie = list => josa(list[list.length - 1].dm.name, '이에요', '예요');
+    const flat = max0 - min < 0.1;
+    find += `<p>${lowAbs.length ? `성장 포인트 구간에 든 영역은 ${nm(lowAbs)}${ie(lowAbs)}.` : '성장 포인트 구간에 든 영역은 없어요.'}</p>`;
+    find += flat ? '<p>영역별 점수가 비슷해서 상대적으로 낮거나 높은 영역을 가리기 어려워요. 영역보다 1·2점으로 답한 문항을 먼저 살펴보세요.</p>'
+      : `<p>상대적으로 가장 낮은 영역은 ${nm(lowest)}${ie(lowest)}.${lowest.length > 1 ? ' 점수 차이가 0.1점도 안 돼서 어느 쪽이 더 약하다고 단정하기 어려우니, 모두 우선 후보로 보세요.' : ''}</p>`;
+    find += `<p>${goodAbs.length ? `강점 구간에 든 영역은 ${nm(goodAbs)}${ie(goodAbs)}.` : (flat ? '강점 구간에 든 영역은 없어요.' : `강점 구간에 든 영역은 없고, 상대적으로 가장 높은 영역은 ${nm(highest)}${ie(highest)}.`)}</p>`;
+  }
+  blocks.push(`<section><h2>핵심 발견</h2><div class="rp-box">${find}</div></section>`);
+
+  rows.forEach(({ dm, st, unreliable }, idx) => {
+    const b = st.mean == null ? null : band(st.mean);
+    const subs = dm.subs.length > 1 ? dm.subs.map(s => {
+      const ss = stats(s.items.map(([code]) => ALL.find(i => i.code === code)));
+      return `${s.name} ${ss.mean == null ? '-' : ss.mean.toFixed(2)}`;
+    }).join(' / ') : '';
+    const notes = [];
+    if (subs) notes.push(`하위 영역 평균: ${subs}`);
+    if (st.na) notes.push(unreliable ? `해당 상황 없음 ${st.na}개로 참고용 점수예요` : `해당 상황 없음 ${st.na}개는 평균에서 제외했어요`);
+    const head = idx === 0 ? `<h2>영역별 상세</h2><p class="rp-hint">1점이나 2점으로 답한 문항은 주황색으로 표시했어요. 영역 평균이 괜찮아도 이 문항들이 영역 안의 빈틈이에요.</p>` : '';
+    blocks.push(`${head}<div class="rp-card">
+      <div class="rp-card-head"><h3>${dm.id}. ${dm.name}</h3><span class="rp-sval">${b ? `<b>${st.mean.toFixed(2)}</b><em class="${b}">${BAND[b]}</em>` : '<b>-</b>'}</span></div>
+      ${notes.length ? `<p class="rp-sub">${notes.join(' · ')}</p>` : ''}
+      <table class="rp-items">${rpItemRows(itemsOf(dm))}</table>
+    </div>`);
+  });
+
+  const sst = stats(itemsOf(selfD));
+  const sMsg = selfMsg(sst.mean);
+  blocks.push(`<section><h2>자기관리 점검</h2>
+    <div class="rp-card"><div class="rp-card-head"><h3>자기관리 평균</h3><span class="rp-sval"><b>${sst.mean == null ? '-' : sst.mean.toFixed(2)}</b></span></div>
+    <p class="rp-sub">리더십 역량이 아니라 감정 조절, 에너지 회복, 스스로 돌아보는 시간처럼 지금 나에게 얼마나 여유가 있는지를 보는 점수예요. ${sMsg}</p>
+    <table class="rp-items">${rpItemRows(itemsOf(selfD))}</table></div>
+  </section>`);
+
+  const sig = ALL.filter(i => i.signal && answers[i.code] === 'na');
+  blocks.push(`<section><h2>한 번 더 들여다볼 문항</h2>
+    <p class="rp-hint">아래 문항에 “해당 상황 없음”으로 답했다면, 그런 일이 없었다기보다 팀원들이 나에게 말하지 않고 있는 것일 수도 있어요.</p>
+    ${sig.length ? `<table class="rp-items">${rpItemRows(sig)}</table>` : '<p class="rp-plain">해당하는 문항이 없어요.</p>'}
+  </section>`);
+
+  blocks.push(`<section><h2>추천 교육 순서</h2><p class="rp-hint">한 번에 하나씩 듣고, 4~6주 정도 현장에서 실천해 본 뒤 다음 순서로 넘어가 보세요.</p>${recsReportHtml()}</section>`);
+  blocks.push(`<section class="rp-guide"><h2>결과 활용 가이드</h2>
+    <p><b>추천 교육은 문항을 기준으로 골랐어요.</b> 같은 영역이라도 어떤 행동이 비어 있는지에 따라 필요한 교육이 달라서, 영역 이름이 아니라 1·2점으로 답한 문항을 보고 과정을 연결했어요. 신청 전에 과정 소개를 보면서, 내가 낮게 답한 행동을 실제로 다루는지 한 번 더 확인해 보세요.</p>
+    <p><b>자기관리 점수와 함께 보세요.</b> 자기관리 점수도 낮다면 스킬 교육보다 업무 부담 조정이나 회복 시간 확보가 먼저일 수 있어요.</p>
+    <p><b>다시 진단해 보세요.</b> 교육을 듣고 3~6개월 뒤 같은 진단을 해보면 실제 행동이 얼마나 바뀌었는지 비교할 수 있어요.</p>
+  </section>`);
+
+  const refText = (document.querySelector('.refs > p') || {}).textContent || '';
+  const refList = (document.querySelector('.refs ol') || {}).innerHTML || '';
+  blocks.push(`<section class="rp-refs"><h2>이 진단지의 근거</h2><p>${esc(refText)}</p><ol>${refList}</ol></section>`);
+  return blocks;
+}
+
+function layoutReport(){
+  const host = document.createElement('div');
+  host.className = 'rp-host';
+  host.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(host);
+  const pages = [];
+  const newPage = () => {
+    const p = document.createElement('div');
+    p.className = 'rp-page';
+    p.innerHTML = '<header class="rp-head"><span>리더십 역량 자기진단 리포트</span></header><div class="rp-body"></div><footer class="rp-foot"></footer>';
+    host.appendChild(p); pages.push(p);
+    return p.querySelector('.rp-body');
+  };
+  let body = newPage();
+  buildReportBlocks().forEach(html => {
+    const blk = document.createElement('div');
+    blk.className = 'rp-block';
+    blk.innerHTML = html;
+    body.appendChild(blk);
+    if (body.scrollHeight > body.clientHeight + 1 && body.children.length > 1) {
+      body.removeChild(blk);
+      body = newPage();
+      body.appendChild(blk);
+    }
+  });
+  pages.forEach((p, i) => {
+    p.querySelector('.rp-foot').textContent = `${i + 1} / ${pages.length}`;
+    if (i === 0) p.querySelector('.rp-head').style.visibility = 'hidden';
+  });
+  return { host, pages };
+}
+
+async function makeReportPdf(){
+  const busy = document.createElement('div');
+  busy.className = 'rp-busy';
+  busy.innerHTML = '<b>리포트를 만드는 중이에요</b><small>잠시만 기다려 주세요</small>';
+  document.body.appendChild(busy);
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const vv = (window.visualViewport && window.visualViewport.scale) || 1;
+  let scale = isIOS ? 1 : Math.max(1, 2 / vv);
+
+  let r = layoutReport();
+  if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+  await new Promise(res => setTimeout(res, 150));
+  r.host.remove();
+  r = layoutReport();
+  const sx = window.scrollX, sy = window.scrollY;
+  window.scrollTo(0, 0);
+  try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+    let fix = 1;
+    const opts = sc => ({
+      scale: sc, backgroundColor: '#ffffff', x: 0, y: 0, scrollX: 0, scrollY: 0,
+      width: RP_W, height: RP_H, windowWidth: RP_W, windowHeight: RP_H, logging: false, useCORS: true,
+      onclone: doc => {
+        const m = doc.querySelector('meta[name="viewport"]');
+        if (m) m.setAttribute('content', `width=${RP_W}, initial-scale=1`);
+        const h = doc.querySelector('.rp-host');
+        if (h) { h.style.left = '0px'; h.style.top = '0px'; }
+        const t = doc.querySelector('[data-cap="1"]');
+        if (t && fix !== 1) { t.style.transformOrigin = '0 0'; t.style.transform = `scale(${fix})`; }
+      }
+    });
+    const shoot = async el => { el.setAttribute('data-cap', '1'); try { return await html2canvas(el, opts(scale)); } finally { el.removeAttribute('data-cap'); } };
+    
+    try {
+      const cal = document.createElement('div');
+      cal.className = 'rp-page';
+      cal.style.position = 'relative';
+      cal.innerHTML = '<i style="position:absolute;left:397px;top:561px;width:8px;height:8px;background:#ff00ff;display:block"></i>';
+      r.host.appendChild(cal);
+      await new Promise(res => requestAnimationFrame(() => requestAnimationFrame(res)));
+      const cc = await shoot(cal);
+      cal.remove();
+      const ctx = cc.getContext('2d');
+      const img = ctx.getImageData(0, 0, cc.width, cc.height).data;
+      let fx = -1;
+      for (let i = 0; i < img.length; i += 4) {
+        if (img[i] > 230 && img[i + 1] < 40 && img[i + 2] > 230) { fx = (i / 4) % cc.width; break; }
+      }
+      const k = fx < 0 ? 1 : fx / (397 * scale);
+      if (Math.abs(k - 1) > 0.05) fix = 1 / k;
+      window.__pdfCal = `보정 ${k.toFixed(2)} · 배율 ${scale}`;
+      cc.width = 0; cc.height = 0;
+    } catch (e) {
+      fix = 1;
+    }
+
+    for (let i = 0; i < r.pages.length; i++) {
+      const canvas = await shoot(r.pages[i]);
+      if (i > 0) pdf.addPage();
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 210, 297);
+      canvas.width = 0; canvas.height = 0;
+    }
+    return pdf.output('blob');
+  } finally {
+    r.host.remove();
+    busy.remove();
+    window.scrollTo(sx, sy);
+  }
+}
+
+let readyPdf = null;
+document.getElementById('pdfSave').addEventListener('click', async () => {
+  if (!readyPdf) return;
+  const status = document.getElementById('pdfStatus');
+  const file = new File([readyPdf.blob], readyPdf.fname, { type: 'application/pdf' });
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: '리더십 셀프 체크 리포트' });
+      status.textContent = '저장하거나 공유했어요. 파일 앱에서 “' + readyPdf.fname + '”을 찾아보세요.';
+      return;
+    }
+  } catch (err) {
+    if (err && err.name === 'AbortError') { status.textContent = '저장을 취소했어요. 다시 누르면 공유 창이 열려요.'; return; }
+  }
+  const url = URL.createObjectURL(readyPdf.blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = readyPdf.fname;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+  status.textContent = 'PDF 리포트 다운로드를 시작했어요.';
+});
+
+const pdfBtn = document.getElementById('pdfBtn');
+pdfBtn.addEventListener('click', async () => {
+  const status = document.getElementById('pdfStatus');
+  if (!window.jspdf || !window.html2canvas) { status.textContent = 'PDF 도구를 불러오지 못했어요. 페이지를 새로고침한 뒤 다시 시도해 주세요.'; return; }
+  pdfBtn.disabled = true; pdfBtn.textContent = '리포트 만드는 중…'; status.textContent = '';
+  try {
+    const blob = await makeReportPdf();
+    const d = new Date();
+    const fname = `리더십역량진단_리포트_${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}.pdf`;
+    const dl = await downloadsReady;
+    if (dl) {
+      try {
+        await dl.save({ filename: fname, data: blob });
+        status.textContent = 'PDF 리포트를 저장했어요.' + (testOn && window.__pdfCal ? ` (${window.__pdfCal})` : '');
+      } catch (err) {
+        const code = err && err.code;
+        status.textContent = code === 'declined' ? '저장을 취소했어요.'
+          : code === 'rate_limited' ? '저장 창이 이미 열려 있어요. 잠시 후 다시 눌러 주세요.'
+          : 'PDF를 저장하지 못했어요. 잠시 후 다시 시도해 주세요.';
+      }
+    } else if (/iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+      readyPdf = { blob, fname };
+      document.getElementById('pdfSave').hidden = false;
+      status.textContent = '리포트가 준비됐어요. 아래 버튼을 눌러 “파일에 저장”을 고르면 파일 앱에 저장돼요.';
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = fname;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      status.textContent = 'PDF 리포트 다운로드를 시작했어요.';
+    }
+  } catch (e) {
+    status.textContent = 'PDF를 만드는 중에 문제가 생겼어요. 다시 시도해 주세요.';
+  } finally {
+    pdfBtn.disabled = false; pdfBtn.textContent = 'PDF 리포트 저장하기';
+  }
+});
+
+renderForm();
+function setTestMode(on){
+  document.getElementById('randBtn').hidden = !on;
+  try { if (on) localStorage.setItem(KEY + ':test', '1'); else localStorage.removeItem(KEY + ':test'); } catch (e) {}
+}
+let testOn = location.hash === '#test';
+try { if (localStorage.getItem(KEY + ':test')) testOn = true; } catch (e) {}
+setTestMode(testOn);
+window.addEventListener('hashchange', () => { if (location.hash === '#test') { testOn = true; setTestMode(true); } });
+{
+  let taps = [];
+  document.getElementById('brandChip').addEventListener('click', () => {
+    const now = Date.now();
+    taps = taps.filter(t => now - t < 2000); taps.push(now);
+    if (taps.length >= 5) {
+      taps = []; testOn = !testOn; setTestMode(testOn);
+      document.getElementById('notice').textContent = testOn ? '테스트 도구를 켰어요. 시작 버튼 아래에서 예시 응답으로 결과를 미리 볼 수 있어요.' : '테스트 도구를 껐어요.';
+    }
+  });
+}
+{
+  const box = document.getElementById('privInline');
+  const src = document.querySelector('#privacy ul');
+  if (src) box.innerHTML = src.outerHTML;
+  const pb = document.getElementById('privBtn');
+  pb.addEventListener('click', () => {
+    const open = box.hidden;
+    box.hidden = !open;
+    pb.setAttribute('aria-expanded', String(open));
+    pb.textContent = open ? '개인정보 안내 접기' : '개인정보 안내 보기';
+  });
+}
+showPage(0);
+</script>
+</body>
+</html>
